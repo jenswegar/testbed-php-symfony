@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/composer.json:/var/www/composer.json
+      - ./src/composer.lock:/var/www/composer.lock
+      - ./src/config:/var/www/config
+      - ./src/src:/var/www/src
+      - ./src/vendor:/var/www/vendor
+      - ./src/bin:/var/www/bin
+      - ./src/public:/var/www/public
