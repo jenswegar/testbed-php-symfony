@@ -28,7 +28,7 @@ class DefaultController
       [
         "name" => $composerJson->name,
         "version" => $composerJson->version,
-        "hostname" => $request->getHost(),
+        "hostname" => gethostname(),
       ]
     );
   }
