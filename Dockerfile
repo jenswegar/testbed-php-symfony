@@ -13,6 +13,9 @@ COPY src/ /var/www/
 
 WORKDIR /var/www
 
+# install deps
+RUN composer install --no-dev
+
 # ensure existance & permissions for var folder
 RUN mkdir -p /var/www/var
 RUN chown -R www-data:www-data /var/www/var
