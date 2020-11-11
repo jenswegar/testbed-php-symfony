@@ -15,6 +15,15 @@ docker run --rm --interactive --tty \
   composer require <package-name>
 ```
 
+## Update composer lock
+
+```
+docker run --rm --interactive --tty \
+  --volume $PWD:/app \
+  composer update
+```
+
+
 ## Run local dev
 
 Opens the project at ```localhost:8080```
