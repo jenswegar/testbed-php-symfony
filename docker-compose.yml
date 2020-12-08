@@ -9,6 +9,7 @@ services:
       - ./src/composer.lock:/var/www/composer.lock
       - ./src/config:/var/www/config
       - ./src/src:/var/www/src
+      - ./src/generated:/var/www/generated
       - ./src/vendor:/var/www/vendor
       - ./src/bin:/var/www/bin
       - ./src/public:/var/www/public
