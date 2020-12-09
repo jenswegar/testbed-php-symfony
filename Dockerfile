@@ -19,12 +19,15 @@ RUN apt-get update && apt-get install -y \
     unzip
 RUN docker-php-ext-install zip pdo pdo_mysql
 
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
 COPY src/ /var/www/
 
 WORKDIR /var/www
 
 # install deps
-RUN composer install --no-dev
+RUN composer install --no-dev --no-scripts --no-autoloader
 
 # ensure existance & permissions for var folder
 RUN mkdir -p /var/www/var
