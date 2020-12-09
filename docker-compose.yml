@@ -4,12 +4,32 @@ services:
     build: .
     ports:
       - "8080:80"
+    environment:
+      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@database:3306/${MYSQL_DATABASE}
+      APP_ENV: dev
     volumes:
+      - ./src/.env:/var/www/.env
       - ./src/composer.json:/var/www/composer.json
       - ./src/composer.lock:/var/www/composer.lock
+      - ./src/symfony.lock:/var/www/symfony.lock
       - ./src/config:/var/www/config
       - ./src/src:/var/www/src
       - ./src/generated:/var/www/generated
+      - ./src/migrations:/var/www/migrations
       - ./src/vendor:/var/www/vendor
       - ./src/bin:/var/www/bin
       - ./src/public:/var/www/public
+  database:
+    image: mariadb:10.5
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+    - testbed_db:/var/lib/mysql
+
+volumes:
+  testbed_db:
