@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\DependencyInjection\Compiler\RegisterCABundleWithPDOMysqlDriverPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -28,6 +29,13 @@ class Kernel extends BaseKernel
     public function getProjectDir(): string
     {
         return \dirname(__DIR__);
+    }
+
+    protected function build(ContainerBuilder $container) {
+        // do not add SSL on dev env
+        if($this->environment != 'dev'){
+            $container->addCompilerPass(new RegisterCABundleWithPDOMysqlDriverPass());
+        }
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
